@@ -24,7 +24,7 @@ hooks:
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
 relationships:
-    database: "db:mysql"
+    database: "mysqldb:mysql"
     rediscache: "cache:redis"
     redissession: "cache:redis"
 
