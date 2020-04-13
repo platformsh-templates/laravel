@@ -1,5 +1,5 @@
-mysqldb:
-  type: db:10.2
+db:
+  type: mariadb:10.2
   disk: 2048
 
 cache:
