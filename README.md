@@ -6,15 +6,17 @@
 </a>
 </p>
 
-This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions.
+This template provides a basic Laravel skeleton.  It comes pre-configured to use a MariaDB database and Redis for caching and sessions using a Laravel-specific bridge library that runs during Composer autoload.  It is intended for you to use as a starting point and modify for your own needs.
 
 Laravel is an opinionated, integrated rapid-application-development framework for PHP.
 
-## Services
+## Features
 
-* PHP 7.3
-* MariaDB 10.2
+* PHP 7.4
+* MariaDB 10.4
 * Redis 5.0
+* Automatic TLS certificates
+* Composer-based build
 
 ## Customizations
 
