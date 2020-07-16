@@ -56,10 +56,13 @@ mounts:
 
 # The configuration of app when it is exposed to the web.
 web:
-  locations:
-    "/":
-      root: "public"
-      index:
-        - index.php
-      allow: true
-      passthru: "/index.php"
+    locations:
+        "/":
+            root: "public"
+            index:
+                - index.php
+            allow: true
+            passthru: "/index.php"
+        "/storage":
+            root: "storage/app/public"
+            scripts: false
