@@ -5,6 +5,11 @@
 # updates. If you wish to change the values below then override them in your
 # normal .lando.yml.
 
+# These both allow you to test this template without needing a site on platform.sh
+# However you will want to replace them in your .lando.yml
+name: laravel-platformsh
+recipe: platformsh
+
 config:
   # Generally this section overrides production variables and settings for
   # values that make more sense for local development.
@@ -26,4 +31,3 @@ tooling:
   artisan:
     cmd: /app/artisan
     service: app
-
