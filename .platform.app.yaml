@@ -63,6 +63,10 @@ web:
                 - index.php
             allow: true
             passthru: "/index.php"
+            rules:
+              '\.(htaccess|config)$':
+                allow: false
+                expires: -1
         "/storage":
             root: "storage/app/public"
             scripts: false
