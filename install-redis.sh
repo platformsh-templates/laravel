@@ -8,8 +8,13 @@ run() {
         compile_source
     fi
 
-    copy_lib
-    enable_lib
+    if [ ! -f "${PLATFORM_APP_DIR}/redis.so" ]; then
+        copy_lib
+    fi
+
+    if ! grep "extension=${PLATFORM_APP_DIR}/redis.so" $PLATFORM_APP_DIR/php.ini -q; then
+        enable_lib
+    fi
 }
 
 enable_lib() {
