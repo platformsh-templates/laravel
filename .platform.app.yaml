@@ -6,6 +6,11 @@ name: app
 
 # The type of the application to build.
 type: php:7.4
+
+runtime:
+    extensions:
+        - redis
+
 build:
     flavor: composer
 
@@ -13,7 +18,6 @@ build:
 hooks:
     build: |
         set -e
-        bash install-redis.sh 5.2.2
     deploy: |
         set -e
         php artisan migrate --force
