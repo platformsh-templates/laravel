@@ -23,6 +23,7 @@ config:
         env:
           APP_ENV: development
           APP_DEBUG: 1
+          LOG_LEVEL: debug
 
 # These are tools that are commonly used during development for this template.
 tooling:
