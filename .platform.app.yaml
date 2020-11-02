@@ -70,3 +70,28 @@ web:
         "/storage":
             root: "storage/app/public"
             scripts: false
+
+crons:
+    # Run Laravel's scheduler every 5 minutes, which is often as crons can run.
+    scheduler:
+        spec: '*/5 * * * *'
+        cmd: 'php artisan schedule:run'
+    # Run Laravel's queue worker task every 9 minutes
+    queue:
+        spec: '*/9 * * * *'
+        # Allow the worker to run for up to 5 minutes. That prevents
+        # a long-running queue from blocking a deploy for more than 5
+        # minutes.
+        cmd: 'php artisan queue:work --max-time=300'
+
+# If you have an especially large queue, you may be better off using a worker.
+# If so, comment out the `queue` cron entry and uncomment this instead. Note that
+# Doing so requires a Medium plan or larger.
+#workers:
+#    queue:
+#        size: S
+#        commands:
+#            # To minimize leakage, the queue worker will stop every hour
+#            # and get restarted automatically.
+#            start: |
+#                php artisan queue:work --max-time=3600
