@@ -11,12 +11,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-
-# Ignore mounts
-storage/app/public
-storage/framework/views
-storage/framework/sessions
-storage/framework/cache
-storage/logs
-bootstrap/cache
-.config
