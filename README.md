@@ -21,8 +21,8 @@ Laravel is an opinionated, integrated rapid-application-development framework fo
 ## Customizations
 
 The following changes have been made relative to a plain Laravel project.  If using this project as a reference for your own existing project, replicate the changes below to your project.
-
 * The `.platform.app.yaml`, `.platform/services.yaml`, and `.platform/routes.yaml` files have been added.  These provide Platform.sh-specific configuration and are present in all projects on Platform.sh.  You may customize them as you see fit.
+* Add the `install-redis.sh` script to your project root, or remove the build step from your `.platform.app.yaml`.
 * An additional Composer library, [`platformsh/laravel-bridge`](https://github.com/platformsh/laravel-bridge), has been added.  It automatically maps Platform.sh's environment variables to Laravel's environment variables where possible.  It leverages the [`platformsh/config-reader`](https://github.com/platformsh/config-reader-php) library.
 * The Laravel Bridge library also automatically configures Laravel to use Redis for both caching and session storage.  That may be disabled by removing or changing the name of the `rediscache` and `redissession` relationships in `.platform.app.yaml`.
 * Laravel normally wants you to create a symlink for the public storage directory, using the `artisan storage:link` command.  That is not necessary and will not work on Platform.sh due to the read-only file system.  Instead, a dedicated web path mapping is included for the `/storage` path that has the same effect.
