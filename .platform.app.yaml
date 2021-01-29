@@ -7,6 +7,10 @@ name: app
 # The type of the application to build.
 type: php:7.4
 
+dependencies:
+    php:
+        composer/composer: '^2'
+
 runtime:
     extensions:
         - redis
