@@ -1,0 +1,15 @@
+--- .gitignore
++++ .gitignore
+@@ -10,3 +10,12 @@ Homestead.json
+ Homestead.yaml
+ npm-debug.log
+ yarn-error.log
++
++# Ignore mounts
++storage/app/public
++storage/framework/views
++storage/framework/sessions
++storage/framework/cache
++storage/logs
++bootstrap/cache
++.config

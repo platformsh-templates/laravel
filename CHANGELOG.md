@@ -1,6 +1,84 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v8.5.9...8.x)
+## [Unreleased](https://github.com/laravel/laravel/compare/v8.5.19...8.x)
+
+
+## [v8.5.19 (2021-06-01)](https://github.com/laravel/laravel/compare/v8.5.18...v8.5.19)
+
+### Changed
+- Update skeleton for filesystem tweaks to make sail usage easier ([c5d38d4](https://github.com/laravel/laravel/commit/c5d38d469a447d6831c3cf56d193be7941d6586f))
+
+
+## [v8.5.18 (2021-05-18)](https://github.com/laravel/laravel/compare/v8.5.17...v8.5.18)
+
+### Changed
+- Add Octane cache store ([#5610](https://github.com/laravel/laravel/pull/5610), [637c85d](https://github.com/laravel/laravel/commit/637c85d624bf19355025b68aaa90e6cadf8a2881))
+
+
+## [v8.5.17 (2021-05-11)](https://github.com/laravel/laravel/compare/v8.5.16...v8.5.17)
+
+### Security
+- Bump framework version to include SQL server security fix ([#5601](https://github.com/laravel/laravel/pull/5601))
+
+
+## [v8.5.16 (2021-04-20)](https://github.com/laravel/laravel/compare/v8.5.15...v8.5.16)
+
+### Changed
+- Rename test methods ([#5574](https://github.com/laravel/laravel/pull/5574))
+- Using faker method instead of properties ([#5583](https://github.com/laravel/laravel/pull/5583))
+
+### Fixed
+- Ignore SQLite files generated on parallel testing ([#5593](https://github.com/laravel/laravel/pull/5593))
+
+
+## [v8.5.15 (2021-03-23)](https://github.com/laravel/laravel/compare/v8.5.14...v8.5.15)
+
+### Changed
+- Add prohibited validation rule ([#5569](https://github.com/laravel/laravel/pull/5569))
+- Re-order composer.json ([#5570](https://github.com/laravel/laravel/pull/5570))
+
+
+## [v8.5.14 (2021-03-16)](https://github.com/laravel/laravel/compare/v8.5.13...v8.5.14)
+
+### Changed
+- Add language for prohibited_if and prohibited_unless validation rules ([#5557](https://github.com/laravel/laravel/pull/5557))
+- Add date facade alias ([#5556](https://github.com/laravel/laravel/pull/5556))
+
+### Fixed
+- Add log level config value to stderr channel ([#5558](https://github.com/laravel/laravel/pull/5558))
+- Fix footer on mobile ([#5561](https://github.com/laravel/laravel/pull/5561))
+
+
+## [v8.5.13 (2021-03-09)](https://github.com/laravel/laravel/compare/v8.5.12...v8.5.13)
+
+### Changed
+- Use same default queue name for all drivers ([#5549](https://github.com/laravel/laravel/pull/5549))
+- Standardise "must" and "may" language in validation ([#5552](https://github.com/laravel/laravel/pull/5552))
+- Add missing 'after_commit' key to queue config ([#5554](https://github.com/laravel/laravel/pull/5554))
+
+
+## [v8.5.12 (2021-03-02)](https://github.com/laravel/laravel/compare/v8.5.11...v8.5.12)
+
+### Fixed
+- Added sans-serif as Fallback Font ([#5543](https://github.com/laravel/laravel/pull/5543))
+- Don't trim `current_password` ([#5546](https://github.com/laravel/laravel/pull/5546))
+
+
+## [v8.5.11 (2021-02-23)](https://github.com/laravel/laravel/compare/v8.5.10...v8.5.11)
+
+### Fixed
+- Don't flash 'current_password' input ([#5541](https://github.com/laravel/laravel/pull/5541))
+
+
+## [v8.5.10 (2021-02-16)](https://github.com/laravel/laravel/compare/v8.5.9...v8.5.10)
+
+### Changed
+- Add "ably" in comment as a broadcast connection ([#5531](https://github.com/laravel/laravel/pull/5531))
+- Add unverified state to UserFactory ([#5533](https://github.com/laravel/laravel/pull/5533))
+- Update login wording ([9a56a60](https://github.com/laravel/laravel/commit/9a56a60cc9e3785683e256d511ee1fb533025a0a))
+
+### Fixed
+- Fix dead link in web.config ([#5528](https://github.com/laravel/laravel/pull/5528))
 
 
 ## [v8.5.9 (2021-01-19)](https://github.com/laravel/laravel/compare/v8.5.8...v8.5.9)
