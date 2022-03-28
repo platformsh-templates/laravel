@@ -5,7 +5,7 @@
 name: app
 
 # The type of the application to build.
-type: php:7.4
+type: php:8.0
 
 dependencies:
     php:
@@ -18,12 +18,27 @@ runtime:
 build:
     flavor: composer
 
+variables:
+    env:
+        N_PREFIX: /app/.global
+
 # The hooks that will be performed when the package is deployed.
 hooks:
     build: |
         set -e
+
+        # install a specific NodeJS version https://github.com/platformsh/snippets/
+        #   -v requested version
+        #   -y install Yarn
+        # curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 17.5 -y; } 3<&0
+
+        # uncomment next line to build assets deploying
+        # npm install && npm run production
+
     deploy: |
         set -e
+        php artisan optimize:clear
+
         php artisan migrate --force
 
 # The relationships of the application with services or other applications.
@@ -99,3 +114,9 @@ crons:
 #            # and get restarted automatically.
 #            start: |
 #                php artisan queue:work --max-time=3600
+
+source:
+  operations:
+    auto-update:
+      command: |
+        curl -fsS https://raw.githubusercontent.com/platformsh/source-operations/main/setup.sh | { bash /dev/fd/3 sop-autoupdate; } 3<&0
