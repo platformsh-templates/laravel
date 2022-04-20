@@ -14,6 +14,7 @@ dependencies:
 runtime:
     extensions:
         - redis
+      # - blackfire # https://docs.platform.sh/integrations/observability/blackfire.
 
 build:
     flavor: composer
@@ -91,7 +92,7 @@ web:
             scripts: false
 
 crons:
-    # Run Laravel's scheduler every 5 minutes, which is often as crons can run.
+    # Run Laravel's scheduler every 5 minutes, which is often as crons can run on Professional plans.
     scheduler:
         spec: '*/5 * * * *'
         cmd: 'php artisan schedule:run'
