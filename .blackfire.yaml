@@ -1,0 +1,102 @@
+tests:
+    # Know more about Blackfire tests
+    # https://blackfire.io/docs/testing-cookbooks/tests
+
+    'The homepage should be fast':
+        path: 
+          - '/'
+        assertions:
+            - 'main.wall_time <= 250ms'
+
+    'The number of created models should be reasonable':
+        path: 
+          - '/'
+        assertions:
+            - 'metrics.laravel.eloquent.models.created.count <= 50'
+
+    'artisan inspire command should not make any SQL queries':
+        command: 'artisan inspire'
+        assertions:
+            - 'metrics.sql.queries.count == 0'
+
+    'The homepage should have a limited number of SQL queries':
+        path: 
+          - '/'
+        assertions:
+            - 'metrics.sql.queries.count <= 50'
+
+    'Some Composer dependencies have known security issues and should be upgraded':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'not has_vulnerable_dependencies()' }
+
+    '"assert.active" is a dev_only feature and should be disabled in production':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.assert_active === false' }
+
+    '"display_errors" should be disabled':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'not is_configuration_enabled("display_errors")' }
+
+    '"display_startup_errors" should not be enabled':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'not is_configuration_enabled("display_startup_errors")' }
+
+    '"max_execution_time" should be less than 30 seconds for Web requests':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.max_execution_time <= 30' }
+
+    '"session.use_strict_mode" should be enabled':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.session_use_strict_mode === true' }
+
+    '"zend.detect_unicode" should be disabled as BOMs are not portable':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.zend_detect_unicode === false' }
+
+    'The realpath cache ttl should be more than one hour in production':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.realpath_cache_ttl >= 3600' }
+
+    'The session garbage collector should be disabled in production':
+        path:
+            - '/.*'
+        assertions:
+            - { expression: 'runtime.configuration.session_gc_probability === 0' }
+
+# Know more about Blackfire builds and scenarios
+# https://blackfire.io/docs/builds-cookbooks/scenarios
+scenarios: |
+    #!blackfire-player
+
+    name "Laravel Scenarios"
+
+    group homepage
+        visit url("/")
+            name "Laravel"
+            expect status_code() == 200
+
+    group articles
+        visit url("/foo/bar")
+            name "Foo Bar"
+            expect status_code() == 200
+
+    scenario
+        name "Anonymous Visit"
+        include homepage
+        include articles
