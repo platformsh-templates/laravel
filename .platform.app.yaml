@@ -87,6 +87,8 @@ web:
                 - index.php
             allow: true
             passthru: "/index.php"
+            headers:
+                X-Frame-Options: SAMEORIGIN
         "/storage":
             root: "storage/app/public"
             scripts: false
