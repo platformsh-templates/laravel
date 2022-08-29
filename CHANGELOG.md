@@ -1,6 +1,103 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v9.1.4...9.x)
+## [Unreleased](https://github.com/laravel/laravel/compare/v9.3.4...9.x)
+
+## [v9.3.4](https://github.com/laravel/laravel/compare/v9.3.3...v9.3.4) - 2022-08-15
+
+### Changed
+
+- Add ValidateSignature middleware for ignore params by @valorin in https://github.com/laravel/laravel/pull/5942
+
+## [v9.3.3](https://github.com/laravel/laravel/compare/v9.3.2...v9.3.3) - 2022-08-03
+
+### Changed
+
+- Validation added `doesnt_end_with` translation by @kichetof in https://github.com/laravel/laravel/pull/5962
+
+## [v9.3.2](https://github.com/laravel/laravel/compare/v9.3.1...v9.3.2) - 2022-08-01
+
+### Changed
+
+- Update Sanctum by @suyar in https://github.com/laravel/laravel/pull/5957
+- Allow Pest plugin in Composer by @driesvints in https://github.com/laravel/laravel/pull/5959
+
+## [v9.3.1](https://github.com/laravel/laravel/compare/v9.3.0...v9.3.1) - 2022-07-26
+
+### Changed
+
+- Update font delivery by @abenerd in https://github.com/laravel/laravel/pull/5952
+- Don't need to ignore vite config file by @GrahamCampbell in https://github.com/laravel/laravel/pull/5953
+
+## [v9.3.0](https://github.com/laravel/laravel/compare/v9.2.1...v9.3.0) - 2022-07-20
+
+### Added
+
+- Uses `laravel/pint` for styling by @nunomaduro in https://github.com/laravel/laravel/pull/5945
+
+### Changed
+
+- Bump axios version by @ankurk91 in https://github.com/laravel/laravel/pull/5946
+- Vite 3 support by @timacdonald in https://github.com/laravel/laravel/pull/5944
+
+## [v9.2.1](https://github.com/laravel/laravel/compare/v9.2.0...v9.2.1) - 2022-07-13
+
+### Changed
+
+- Add auth.json to skeleton by @driesvints in https://github.com/laravel/laravel/pull/5924
+- Update `bootstrap.js` by @irsyadadl in https://github.com/laravel/laravel/pull/5929
+- Add default reloading to skeleton by @timacdonald in https://github.com/laravel/laravel/pull/5927
+- Update to the latest version of laravel-vite-plugin by @jessarcher in https://github.com/laravel/laravel/pull/5943
+
+## [v9.2.0](https://github.com/laravel/laravel/compare/v9.1.10...v9.2.0) - 2022-06-28
+
+### Added
+
+- Vite by @jessarcher in https://github.com/laravel/laravel/pull/5904
+- Added support for easy development configuration in bootstrap.js by @rennokki in https://github.com/laravel/laravel/pull/5900
+
+### Changed
+
+- Sorted entries in the `en` validation translations file by @FaridAghili in https://github.com/laravel/laravel/pull/5899
+
+## [v9.1.10](https://github.com/laravel/laravel/compare/v9.1.9...v9.1.10) - 2022-06-07
+
+### Changed
+
+- Add language line by @taylorotwell in https://github.com/laravel/laravel/commit/b084aacc5ad105e39c2b058e9523e73655be8d1f
+- Improve Pusher configuration for easy development by @oanhnn in https://github.com/laravel/laravel/pull/5897
+
+## [v9.1.9](https://github.com/laravel/laravel/compare/v9.1.8...v9.1.9) - 2022-05-28
+
+### Changed
+
+- Switch to ESM imports by @jessarcher in https://github.com/laravel/laravel/pull/5895
+
+## [v9.1.8](https://github.com/laravel/laravel/compare/v9.1.7...v9.1.8) - 2022-05-05
+
+### Changed
+
+- Add local_domain option to smtp configuration by @bintzandt in https://github.com/laravel/laravel/pull/5877
+- Add specific test user in seeder by @driesvints in https://github.com/laravel/laravel/pull/5879
+
+## [v9.1.7](https://github.com/laravel/laravel/compare/v9.1.6...v9.1.7) - 2022-05-03
+
+### Changed
+
+- Deprecation log stack trace option by @driesvints in https://github.com/laravel/laravel/pull/5874
+
+## [v9.1.6](https://github.com/laravel/laravel/compare/v9.1.5...v9.1.6) - 2022-04-20
+
+### Changed
+
+- Move password lines into main translation file by @taylorotwell in https://github.com/laravel/laravel/commit/db0d052ece1c17c506633f4c9f5604b65e1cc3a4
+- Add missing maintenance to config by @ibrunotome in https://github.com/laravel/laravel/pull/5868
+
+## [v9.1.5](https://github.com/laravel/laravel/compare/v9.1.4...v9.1.5) - 2022-04-12
+
+### Changed
+
+- Rearrange route methods by @osbre in https://github.com/laravel/laravel/pull/5862
+- Add levels to handler by @taylorotwell in https://github.com/laravel/laravel/commit/a507e1424339633ce423729ec0ac49b99f0e57d7
 
 ## [v9.1.4](https://github.com/laravel/laravel/compare/v9.1.3...v9.1.4) - 2022-03-29
 
