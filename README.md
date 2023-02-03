@@ -12,7 +12,7 @@ Laravel is an opinionated, integrated rapid-application-development framework fo
 
 ## Features
 
-* PHP 7.4
+* PHP 8.0
 * MariaDB 10.4
 * Redis 5.0
 * Automatic TLS certificates
