@@ -1,6 +1,6 @@
-dbb:
+dbc:
   type: mariadb:10.4
   disk: 2048
 
-cacheb:
+cacheC:
     type: redis:5.0
