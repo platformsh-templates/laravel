@@ -13,6 +13,7 @@
         "platformsh/laravel-bridge": "^2.2"
     },
     "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
