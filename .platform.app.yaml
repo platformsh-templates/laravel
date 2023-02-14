@@ -50,10 +50,7 @@ hooks:
         php artisan view:cache
         php artisan optimize
 
-        php artisan migrate
-
-        # php artisan optimize:clear
-        # php artisan migrate --force
+        php artisan migrate --force
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
