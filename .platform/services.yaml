@@ -2,5 +2,5 @@ dbc:
   type: mariadb:10.4
   disk: 2048
 
-cacheC:
+cachec:
     type: redis:5.0
