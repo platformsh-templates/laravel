@@ -35,9 +35,13 @@ hooks:
 
         # uncomment next line to build assets deploying
         # npm install && npm run production
+        # laravel needs the storage directories created before it can use them
+        mv storage storagetmp
 
     deploy: |
         set -e
+        # rsync our storagetmp structures into the network shares
+        rsync -av storagetmp/ storage
         php artisan optimize:clear
 
         php artisan migrate --force
