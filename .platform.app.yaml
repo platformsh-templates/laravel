@@ -40,6 +40,7 @@ hooks:
         set -e
         php artisan optimize:clear
         php artisan optimize
+        php artisan view:cache
         php artisan migrate --force
 
 # The relationships of the application with services or other applications.
