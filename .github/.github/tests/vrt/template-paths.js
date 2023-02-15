@@ -29,8 +29,7 @@ scenarioPaths.paths = [
         "label": "Home",
         "delay": 2000,
         "hideSelectors": [
-            ".sm\:ml-0",
-            ".mt-4"
+            "mt-4",
         ],
     },
     {
