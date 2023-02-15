@@ -28,6 +28,7 @@ scenarioPaths.paths = [
     {
         "label": "Home",
         "delay": 2000,
+        "hideSelectors": "sm:ml-0",
     },
     {
         "label": "Forced 404",
