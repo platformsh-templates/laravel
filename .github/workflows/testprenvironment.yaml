@@ -1,0 +1,38 @@
+name: "TestPrEnvironment"
+on:
+  workflow_run:
+    workflows: [ "platformsh" ]
+    types:
+      - completed
+  pull_request:
+    branches:
+      - master
+      - main
+env:
+  # @todo I dont think this is needed anymore
+  GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+jobs:
+  test-pr-env:
+    name: TestPrEnvironment
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'platformsh-templates' }}
+    steps:
+      - name: 'Get Project ID'
+        id: 'get-proj-id'
+        uses: platformsh/gha-retrieve-projectid@main
+        with:
+          github_token: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+
+      - name: 'Get Production URL'
+        id: 'get-prod-url'
+        uses: platformsh/gha-retrieve-production-url@main
+        with:
+          platformsh_token: ${{ secrets.TEMPLATES_CLI_TOKEN }}
+          project_id: ${{ steps.get-proj-id.outputs.project_id }}
+
+      - name: 'Run Pull Request Tests'
+        id: get-target-url
+        uses: platformsh/gha-template-pr-tests@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          baseline-url: ${{ steps.get-prod-url.outputs.production_url }}

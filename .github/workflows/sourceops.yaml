@@ -1,0 +1,23 @@
+name: Trigger Source Operations on a Schedule
+on:
+  schedule:
+    # Run at 00:15 every day
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+
+env:
+  PLATFORMSH_CLI_TOKEN: ${{ secrets.TEMPLATES_CLI_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+
+jobs:
+  run_dm_update:
+    name: Trigger Source Op
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'platformsh-templates' }}
+    steps:
+      - name: 'Run source ops'
+        id: run-source-op
+        uses: platformsh/gha-run-sourceops-update@main
+        with:
+          github_token: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+          platformsh_token: ${{ secrets.TEMPLATES_CLI_TOKEN }}

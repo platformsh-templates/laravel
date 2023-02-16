@@ -1,0 +1,66 @@
+name: Update last.updated
+on:
+  push:
+    branches:
+      - main
+      - master
+
+env:
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+  GH_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+
+jobs:
+  update-last-updated-file:
+    name: "Updates the last.updated file with the current date"
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'platformsh-templates' && github.event.commits[0].author.name != 'GitHub Action' }}
+    steps:
+      - name: 'get repo'
+        id: get-repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{secrets.TEMPLATES_GITHUB_TOKEN }}
+
+      - name: 'set git config'
+        shell: bash
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
+      - name: 'check for enforce admins'
+        id: 'check-for-enforce'
+        shell: bash
+        run: |
+          enforceAdmins=$(gh api "/repos/${GITHUB_REPOSITORY}/branches/${DEFAULT_BRANCH}/protection/enforce_admins" --jq '.enabled')
+          echo "::notice is enforce admins enabled? ${enforceAdmins}"
+          echo "enforce_admin=${enforceAdmins}" >> $GITHUB_OUTPUT
+
+      - name: 'disable enforce admins'
+        id: 'disable-force-admins'
+        if: ${{ 'true' == steps.check-for-enforce.outputs.enforce_admin }}
+        shell: bash
+        run: |
+          echo "::notice::Enforce Admins is enabled. Temporarily disabling..."
+          gh api --method DELETE "/repos/${GITHUB_REPOSITORY}/branches/${DEFAULT_BRANCH}/protection/enforce_admins" --silent \
+               && echo "::notice::Enforce admins disabled" \
+               || echo "::error::Disabling enforce admin failed"
+
+      - name: 'update last.updated'
+        id: last-updated
+        shell: bash
+        run: |
+          date > ./.platform/last.updated
+          git add ./.platform/last.updated
+          git commit -m "auto-updates version, post merge"
+          git push origin "${DEFAULT_BRANCH}"
+
+      - name: "Re-enable enforce admins"
+        id: re-enable-enforce-admin
+        if: ${{ 'true' == steps.check-for-enforce.outputs.enforce_admin }}
+        shell: bash
+        run: |
+          gh api --method POST \
+          -H "Accept: application/vnd.github+json" \
+          "/repos/${GITHUB_REPOSITORY}/branches/${DEFAULT_BRANCH}/protection/enforce_admins" --silent \
+          && echo "::notice::Successfully re-enabled enforce admin" \
+          || echo "::error::Re-enabling enforce admins failed."

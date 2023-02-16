@@ -3,4 +3,4 @@ db:
   disk: 2048
 
 cache:
-    type: redis:5.0
+   type: redis:5.0
