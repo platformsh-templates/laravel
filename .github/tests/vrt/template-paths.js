@@ -34,12 +34,6 @@ scenarioPaths.paths = [
         "label": "Forced 404",
         "delay": 2000,
     },
-    {
-        "label": "Forced 404 custom",
-        "path": "another/path/to/nowhere/",
-        "delay": 2000,
-        "hideSelectors": [".mt-4"],
-    },
 ];
 
 module.exports = scenarioPaths;
