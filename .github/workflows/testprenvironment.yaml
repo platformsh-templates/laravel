@@ -11,6 +11,7 @@ on:
 env:
   # @todo I dont think this is needed anymore
   GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+  ACTIONS_STEP_DEBUG: true
 jobs:
   test-pr-env:
     name: TestPrEnvironment
