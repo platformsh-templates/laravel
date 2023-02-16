@@ -28,9 +28,7 @@ scenarioPaths.paths = [
     {
         "label": "Home",
         "delay": 2000,
-        "hideSelectors": [
-            "mt-4",
-        ],
+        "hideSelectors": [".mt-4"],
     },
     {
         "label": "Forced 404",
