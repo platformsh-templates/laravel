@@ -32,7 +32,7 @@ jobs:
 
       - name: 'Run Pull Request Tests'
         id: get-target-url
-        uses: platformsh/gha-template-pr-tests@main
+        uses: platformsh/gha-template-pr-tests@debug
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           baseline-url: ${{ steps.get-prod-url.outputs.production_url }}
