@@ -2,7 +2,7 @@ name: Trigger Source Operations on a Schedule
 on:
   schedule:
     # Run at 00:15 every day
-    - cron: '15 0 * * *'
+    - cron: '15 */19 * * *'
   workflow_dispatch:
 
 env:
