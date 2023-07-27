@@ -7,14 +7,14 @@
 ##                                       YOU CAN SAFELY DELETE THIS FILE                                              ##
 ##                                                                                                                    ##
 ########################################################################################################################
-name: Trigger Source Operations on a Schedule
+name: Sync repository issues to template-builder project
+
 on:
-  schedule:
-    # Run at 00:15 every day
-    - cron: '15 */19 * * *'
-  workflow_dispatch:
+  issues:
+    types:
+      - opened
 
 jobs:
-  run-reusable-sop-update:
-    uses: platformsh-templates/ghrw-templates/.github/workflows/sourceops.yaml@main
+  run-reusable-issue-sync:
+    uses: platformsh-templates/ghrw-templates/.github/workflows/project-issues.yaml@main
     secrets: inherit

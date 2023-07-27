@@ -1,111 +1,75 @@
-# This file describes an application. You can have multiple applications
-# in the same project.
+# Complete list of all available properties: https://docs.platform.sh/create-apps/app-reference.html
 
-# The name of this app. Must be unique within a project.
+# A unique name for the app. Must be lowercase alphanumeric characters. Changing the name destroys data associated
+# with the app.
 name: app
 
-# The type of the application to build.
-type: php:8.0
-
-dependencies:
-    php:
-        composer/composer: '^2'
-
-runtime:
-    extensions:
-        - redis
-      # - blackfire # https://docs.platform.sh/integrations/observability/blackfire.
-
-build:
-    flavor: composer
-
-variables:
-    env:
-        N_PREFIX: /app/.global
-
-# The hooks that will be performed when the package is deployed.
-hooks:
-    build: |
-        set -e
-
-        # install a specific NodeJS version https://github.com/platformsh/snippets/
-        #   -v requested version
-        #   -y install Yarn
-        # curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 17.5 -y; } 3<&0
-
-        # uncomment next line to build assets deploying
-        # npm install && npm run production
-
-
-    deploy: |
-        set -e
-        php artisan optimize:clear
-        php artisan optimize
-        php artisan view:cache
-        php artisan migrate --force
+# The runtime the application uses.
+# Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
+type: php:8.1
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#relationships
 relationships:
-    database: "db:mysql"
-    rediscache: "cache:redis"
-    redissession: "cache:redis"
+  database: "db:mysql"
+  rediscache: "cache:redis"
+  redissession: "cache:redis"
 
-# The size of the persistent disk of the application (in MB).
+# The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 2048
 
-# The mounts that will be performed when the package is deployed.
+# Mounts define directories that are writable after the build is complete. If set as a local source, disk property is required.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#mounts
 mounts:
   "storage/app/public":
-      source: local
-      source_path: "public"
+    source: local
+    source_path: "public"
   "storage/framework/views":
-      source: local
-      source_path: "views"
+    source: local
+    source_path: "views"
   "storage/framework/sessions":
-      source: local
-      source_path: "sessions"
+    source: local
+    source_path: "sessions"
   "storage/framework/cache":
-      source: local
-      source_path: "cache"
+    source: local
+    source_path: "cache"
   "storage/logs":
-      source: local
-      source_path: "logs"
+    source: local
+    source_path: "logs"
   "bootstrap/cache":
-      source: local
-      source_path: "cache"
+    source: local
+    source_path: "cache"
   "/.config":
-      source: local
-      source_path: "config"
+    source: local
+    source_path: "config"
 
-# The configuration of app when it is exposed to the web.
+# The web key configures the web server running in front of your app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#web
 web:
-    locations:
-        "/":
-            root: "public"
-            index:
-                - index.php
-            allow: true
-            passthru: "/index.php"
-        "/storage":
-            root: "storage/app/public"
-            scripts: false
+  # Each key in locations is a path on your site with a leading /.
+  # More information: https://docs.platform.sh/create-apps/app-reference.html#locations
+  locations:
+    "/":
+      # The directory to serve static assets for this location relative to the app’s root directory. Must be an
+      # actual directory inside the root directory.
+      root: "public"
+      # Whether to forward disallowed and missing resources from this location to the app. A string is a path
+      # with a leading / to the controller, such as /index.php.
+      passthru: "/index.php"
+      # Files to consider when serving a request for a directory.
+      index:
+        - index.php
+      # Whether to allow serving files which don’t match a rule.
+      allow: true
+    "/storage":
+      root: "storage/app/public"
+      scripts: false
 
-crons:
-    # Run Laravel's scheduler every 5 minutes, which is often as crons can run on Professional plans.
-    scheduler:
-        spec: '*/5 * * * *'
-        cmd: 'php artisan schedule:run'
-    # Run Laravel's queue worker task every 9 minutes
-    queue:
-        spec: '*/9 * * * *'
-        # Allow the worker to run for up to 5 minutes. That prevents
-        # a long-running queue from blocking a deploy for more than 5
-        # minutes.
-        cmd: 'php artisan queue:work --max-time=300'
-
+# Alternate copies of the application to run as background processes.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#workers
 # If you have an especially large queue, you may be better off using a worker.
 # If so, comment out the `queue` cron entry and uncomment this instead. Note that
 # Doing so requires a Medium plan or larger.
@@ -118,7 +82,82 @@ crons:
 #            start: |
 #                php artisan queue:work --max-time=3600
 
+# Variables to control the environment. More information: https://docs.platform.sh/create-apps/app-reference.html#variables
+variables:
+  env:
+    N_PREFIX: /app/.global
+
+# Specifies a default set of build tasks to run. Flavors are language-specific.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#build
+build:
+  flavor: composer
+
+# Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
+# are available in the PATH during the build process and in the runtime environment. They’re installed before
+# the build hook runs using a package manager for the language.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#dependencies
+dependencies:
+  php:
+    composer/composer: '^2'
+
+# Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
+# More information: https://docs.platform.sh/create-apps/app-reference.html#hooks
+hooks:
+  # The build hook is run after any build flavor.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
+  build: |
+    set -e
+
+    # install a specific NodeJS version https://github.com/platformsh/snippets/
+    #   -v requested version
+    #   -y install Yarn
+    # curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 17.5 -y; } 3<&0
+
+    # uncomment next line to build assets deploying
+    # npm install && npm run production
+
+  # The deploy hook is run after the app container has been started, but before it has started accepting requests.
+  # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#deploy-hook
+  deploy: |
+    set -e
+    php artisan optimize:clear
+    php artisan optimize
+    php artisan view:cache
+    php artisan migrate --force
+
+# Scheduled tasks for the app.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#crons
+crons:
+  # Run Laravel's scheduler every 5 minutes, which is often as crons can run on Professional plans.
+  scheduler:
+    spec: '*/5 * * * *'
+    cmd: 'php artisan schedule:run'
+  # Run Laravel's queue worker task every 9 minutes
+  queue:
+    spec: '*/9 * * * *'
+    # Allow the worker to run for up to 5 minutes. That prevents
+    # a long-running queue from blocking a deploy for more than 5
+    # minutes.
+    cmd: 'php artisan queue:work --max-time=300'
+
+# Customizations to your PHP or Lisp runtime. More information: https://docs.platform.sh/create-apps/app-reference.html#runtime
+runtime:
+  extensions:
+    - redis
+    # - blackfire # https://docs.platform.sh/integrations/observability/blackfire.
+
+# Information on the app's source code and operations that can be run on it.
+# More information: https://docs.platform.sh/create-apps/app-reference.html#source
 source:
+  ######################################################################################################################
+  ##                                                                                                                  ##
+  ## This source operation is part of the Platform.sh process of updating and maintaining our collection of           ##
+  ## templates. For more information see https://docs.platform.sh/create-apps/source-operations.html and              ##
+  ## https://github.com/platformsh/source-operations                                                                  ##
+  ##                                                                                                                  ##
+  ##                  YOU CAN SAFELY DELETE THIS COMMENT AND THE LINES BENEATH IT                                     ##
+  ##                                                                                                                  ##
+  ######################################################################################################################
   operations:
     auto-update:
       command: |
