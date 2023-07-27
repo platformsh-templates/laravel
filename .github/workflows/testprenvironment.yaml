@@ -1,4 +1,14 @@
-name: "TestPrEnvironment"
+########################################################################################################################
+##                                                                                                                    ##
+## This github workflow file is part of the Platform.sh process of updating and maintaining our collection of         ##
+## templates. For more information see https://github.com/platformsh-templates/ghrw-templates                         ##
+## and https://github.com/search?q=topic%3Agithub-action+org%3Aplatformsh                                             ##
+##                                                                                                                    ##
+##                                       YOU CAN SAFELY DELETE THIS FILE                                              ##
+##                                                                                                                    ##
+########################################################################################################################
+name: "TestPullRequestEnv"
+run-name: "TestPullRequestEnv"
 on:
   workflow_run:
     workflows: [ "platformsh" ]
@@ -8,31 +18,15 @@ on:
     branches:
       - master
       - main
-env:
-  # @todo I dont think this is needed anymore
-  GITHUB_TOKEN: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
+
 jobs:
-  test-pr-env:
-    name: TestPrEnvironment
-    runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'platformsh-templates' }}
-    steps:
-      - name: 'Get Project ID'
-        id: 'get-proj-id'
-        uses: platformsh/gha-retrieve-projectid@main
-        with:
-          github_token: ${{ secrets.TEMPLATES_GITHUB_TOKEN }}
-
-      - name: 'Get Production URL'
-        id: 'get-prod-url'
-        uses: platformsh/gha-retrieve-production-url@main
-        with:
-          platformsh_token: ${{ secrets.TEMPLATES_CLI_TOKEN }}
-          project_id: ${{ steps.get-proj-id.outputs.project_id }}
-
-      - name: 'Run Pull Request Tests'
-        id: get-target-url
-        uses: platformsh/gha-template-pr-tests@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          baseline-url: ${{ steps.get-prod-url.outputs.production_url }}
+  # !!!! WARNING !!!! #
+  # If for some reason you decide to change this jobid from `TestPrEnv-CW` to something else, you will also need to
+  # add a repository variable of CW_JOBID with a value of the new jobid.
+  # Explanation: the jobid below is part of the status check name that is used in preparing the repository for an
+  # auto-accepting PR. If you change the jobid below, but do not add the repo variable with this value, then the repository
+  # will be configured to require a status check that does not exist and it will be unable to accept the PR. In addition,
+  # you will be blocked from accepting the PR until you remove it from the repo's settings
+  TestPrEnv-CW:
+    uses: platformsh-templates/ghrw-templates/.github/workflows/testprenvironment.yaml@main
+    secrets: inherit
