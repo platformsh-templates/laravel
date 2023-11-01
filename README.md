@@ -12,11 +12,21 @@ Laravel is an opinionated, integrated rapid-application-development framework fo
 
 ## Features
 
-* PHP 7.4
+* PHP 8.0
 * MariaDB 10.4
 * Redis 5.0
 * Automatic TLS certificates
 * Composer-based build
+
+## Notice
+On Platform.sh the [minimum time between cron jobs](https://docs.platform.sh/create-apps/app-reference.html#cron-job-timing) 
+being triggered depends on your plan. [Laravel documentation](https://laravel.com/docs/7.x/scheduling) suggests running 
+the scheduler as a cron job every minute. Task scheduling may then be contradicted by the cron minimum frequency. 
+Schedules outside the specified cron frequency are ignored and the related tasks aren’t triggered. 
+
+Due to this conflict, this Laravel template utilizes [workers](https://docs.platform.sh/create-apps/workers.html) to run 
+both the scheduler and the queue systems. In order to have enough resources to support these workers as well as the 
+MariaDB and Redis service, **this template requires at least a [Medium plan](https://docs.platform.sh/administration/pricing.html#multiple-apps-in-a-single-project).**
 
 ## Customizations
 
