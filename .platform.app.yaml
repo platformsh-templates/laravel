@@ -102,10 +102,14 @@ workers:
       # and get restarted automatically.
       start: |
         php artisan queue:work --max-time=3600
+    # set the worker's disk to the minimum amount
+    disk: 256
   scheduler:
     size: S
     commands:
       start: php artisan schedule:work
+    # set the worker's disk to the minimum amount
+    disk: 256
 
 
 
