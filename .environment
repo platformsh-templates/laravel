@@ -1,0 +1,8 @@
+export MAIL_MAILER=smtp
+export MAIL_HOST=mailhog
+export MAIL_PORT=1025
+export MAIL_USERNAME=null
+export MAIL_PASSWORD=null
+export MAIL_ENCRYPTION=null
+export MAIL_FROM_ADDRESS="hello@example.com"
+export MAIL_FROM_NAME="${APP_NAME}"
