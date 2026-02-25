@@ -34,7 +34,7 @@ hooks:
         # curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 17.5 -y; } 3<&0
 
         # uncomment next line to build assets deploying
-        # npm install && npm run production
+        # npm install && npm run build
 
 
     deploy: |
